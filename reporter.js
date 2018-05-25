@@ -56,10 +56,10 @@ class Reporter {
             })
         ])
     }
-    constructor() {
+    constructor(host, port) {
         this.timer = process.env.TIMER || 5000;
-        this.port = process.env.ETHMINER_PORT || 3000;
-        this.host = process.env.ETHMINER_HOST || '127.0.0.1'
+        this.port = port || 3000;
+        this.host = host || '127.0.0.1'
     }
 
     query() {
