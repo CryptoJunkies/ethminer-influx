@@ -8,7 +8,7 @@ var miners = process.env.MINERS.split(',') // ex var miners = "miner01:3333,mine
 
 for (i = 0; i < miners.length; i++) {
 	var miner = miners[i].split(':');
-	this['reporter'+ i] = reporter.run(miner[0], miner[1]);
+	this['reporter'+ i] = new Reporter(miner[0], miner[1]);
     this['reporter'+ i].run;
     }
 
