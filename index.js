@@ -2,11 +2,14 @@ const Influx = require('influx');
 
 const timer = process.env.TIMER;
 const Reporter = require('./reporter');
-const reporter = new Reporter();
+//const reporter = new Reporter();
 
-// get command line args (miners to monitor should be passed in as hostname:port)
-process.argv.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-    });
+var miners = process.env.MINERS.split(',') // ex var miners = "miner01:3333,miner02:3000,miner04:2222";
 
-reporter.run();
+for (i = 0; i < miners.length; i++) {
+	var miner = miners[i].split(':');
+	this['reporter'+ i] = reporter.run(miner[0], miner[1]);
+    this['reporter'+ i].run;
+    }
+
+//reporter.run();
