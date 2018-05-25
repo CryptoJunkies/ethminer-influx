@@ -8,5 +8,4 @@ WORKDIR /app
 
 RUN npm i
 
-ENTRYPOINT [ "node index.js" ]
-CMD [ "localhost:3333 "]
+CMD node index.js
