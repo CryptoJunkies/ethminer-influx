@@ -1,8 +1,10 @@
+# mstats-exp [![Build Status](https://travis-ci.org/CryptoJunkies/ethminer-influx.svg?branch=master)](https://travis-ci.org/CryptoJunkies/ethminer-influx)
+[Image on Docker Hub](https://hub.docker.com/r/cryptojunkies/mstats-exp/)
 # ethminer influx exporter
 
 # Install
 ```bash
-git clone https://github.com/cgarnier/ethminer-influx.git
+git clone https://github.com/CryptoJunkies/ethminer-influx.git
 npm i
 ```
 # Usage
