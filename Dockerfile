@@ -11,7 +11,7 @@ ENV INFLUX_PASS="influx-pass"
 
 RUN mkdir /app
 
-COPY ./app/* /app/*
+COPY ./app/* /app/
 
 WORKDIR /app
 
