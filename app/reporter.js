@@ -4,9 +4,12 @@ const os = require('os');
 
 const hostname = process.env.HOSTNAME || os.hostname();
 const db = process.env.INFLUX_DB || 'miners_db';
+const influxHost = process.env.INFLUX_HOST || 'localhost',
+const influxPort = process.env.INFLUX_PORT || '8086',
 
 const influx = new Influx.InfluxDB({
-    host: process.env.INFLUX_HOST || 'localhost',
+    host: influxHost,
+    port: influxPort,
     database: db,
     username: process.env.INFLUX_USER,
     password: process.env.INFLUX_PASS,
