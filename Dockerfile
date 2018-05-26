@@ -9,7 +9,9 @@ ENV INFLUX_HOST="influx_mine.diehlabs.lan"
 ENV INFLUX_USER="influx-user"
 ENV INFLUX_PASS="influx-pass"
 
-ADD ./app /app
+RUN mkdir /app
+
+COPY /app/* /app/
 
 WORKDIR /app
 
