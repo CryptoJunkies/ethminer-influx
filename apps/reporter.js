@@ -8,6 +8,8 @@ const db = process.env.INFLUX_DB || 'miners_db';
 const influx = new Influx.InfluxDB({
     host: process.env.INFLUX_HOST || 'localhost',
     database: db,
+    username: process.env.INFLUX_USER,
+    password: process.env.INFLUX_PASS,
     schema: [
         {
             measurement: 'node_stats',
@@ -37,6 +39,13 @@ const influx = new Influx.InfluxDB({
 });
 
 class Reporter {
+    constructor(host, port) {
+        this.timer = process.env.TIMER || 5000;
+        this.port = port || 3000;
+        this.host = host || '127.0.0.1';
+        console.log('Starting reporter for ' + this.host + ' on port ' + this.port);
+    }
+
     export(res) {
         let nodeStats = res;
         let gpuStats = res.gpu;
@@ -56,16 +65,13 @@ class Reporter {
             })
         ])
     }
-    constructor(host, port) {
-        this.timer = process.env.TIMER || 5000;
-        this.port = port || 3000;
-        this.host = host || '127.0.0.1'
-    }
 
     query() {
         return command('miner_getstat1', this.port, this.host)
             .then(res => {
-                return res.result
+                var queryResult = res.result;
+                console.log(queryResult);
+                return queryResult;
             })
     }
 

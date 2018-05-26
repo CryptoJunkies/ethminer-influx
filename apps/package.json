@@ -2,13 +2,13 @@
   "name": "ethminer-influx",
   "version": "1.0.0",
   "description": "ethminer influxdb exporter",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
-  "author": "Clément Garnier <cle.garnier@gmail.com>",
-  "license": "ISC",
-  "repository": "github:cgarnier/ethminer-influx",
+  "author": "Chris Diehl <cultclassik@gmail.com>",
+  "license": "MIT",
+  "repository": "github:CryptoJunkies/ethminer-influx",
   "dependencies": {
     "influx": "^5.0.7",
     "os": "^0.1.1"

@@ -6,11 +6,13 @@ ENV TIMER="5000"
 ENV MINERS="localhost:3333"
 ENV INFLUX_DB="minerstats"
 ENV INFLUX_HOST="influx_mine.diehlabs.lan"
+ENV INFLUX_USER="influx-user"
+ENV INFLUX_PASS="influx-pass"
 
-ADD . /app
+ADD ./app /app
 
 WORKDIR /app
 
-RUN npm i
+RUN npm install
 
-CMD node index.js
+CMD node app.js
