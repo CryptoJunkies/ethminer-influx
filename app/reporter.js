@@ -1,4 +1,4 @@
-const command = require('./command');
+const command = require('./tcp');
 const Influx = require('influx');
 const os = require('os');
 
@@ -42,11 +42,12 @@ const influx = new Influx.InfluxDB({
 });
 
 class Reporter {
-    constructor(host, port) {
+    constructor(host, port, mtype) {
         this.timer = process.env.TIMER || 5000;
         this.port = port || 3000;
         this.host = host || '127.0.0.1';
-        console.log('Starting reporter for ' + this.host + ' on port ' + this.port);
+        this.mtype = mtype || 'ethminer';
+        console.log('Starting reporter for ' + this.host + ' (type ' + mtype + ') on port ' + this.port);
     }
 
     export(res) {
@@ -72,27 +73,42 @@ class Reporter {
     query() {
         return command('miner_getstat1', this.port, this.host)
             .then(res => {
-                var queryResult = res.result;
+                let queryResult = res.result;
                 console.log(queryResult);
                 return queryResult;
             })
     }
 
     format(raw) {
-        // https://github.com/ethereum-mining/ethminer/blob/master/libapicore/ApiServer.cpp
-        return {
-            up_time: parseInt(raw[1]),
-            hash_rate: parseInt(raw[2].split(';')[0]),
-            shares: parseInt(raw[2].split(';')[1]),
-            rejected_shares: parseInt(raw[2].split(';')[2]),
-            gpu: raw[3].split(';').map((hashRate, id) => {
+        /*
+        https://github.com/ethereum-mining/ethminer/blob/master/libapicore/ApiServer.cpp
+        https://github.com/nemosminer/DSTM-equihash-miner/blob/master/json-rpc.txt
+        */
+        var output = {};
+
+        if (raw.id) { // dstm api, maybe ewbf also
+            output.up_time = raw.uptime;
+            output.hash_rate = raw.result[0].avg_sol_ps;
+            output.shares = raw.result[0].accepted_shares;
+            output.rejected_shares = raw.result[0].rejected_shares;
+            output.gpu = raw.result[0].sol_ps;
+            output.invalid_shares = 0;
+            output.pool_switches = 0;
+        } else { // must be claymore/ethminer api
+            output.up_time = parseInt(raw[1]);
+            output.hash_rate = parseInt(raw[2].split(';')[0]);
+            output.shares = parseInt(raw[2].split(';')[1]);
+            output.rejected_shares = parseInt(raw[2].split(';')[2]);
+            output.gpu = raw[3].split(';').map((hashRate, id) => {
                 return {
                     hash_rate: parseInt(hashRate)
                 }
-            }),
-            invalid_shares: parseInt(raw[8].split(';')[0]),
-            pool_switches: parseInt(raw[8].split(';')[1])
+            });
+            output.invalid_shares = parseInt(raw[8].split(';')[0]);
+            output.pool_switches = parseInt(raw[8].split(';')[1]);
         }
+
+        return output;
     }
 
     log(res) {

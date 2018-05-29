@@ -8,12 +8,12 @@ services:
   - docker
 
 script:
-  - TAG="0.1"
+  - TAG="0.2"
   - CONT_NAME="mstats-exp"
   - DOCKER_REPO="cryptojunkies"
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
   - docker build -t $DOCKER_REPO/$CONT_NAME:$TAG .
   - docker images
-  - docker tag $DOCKER_REPO/$CONT_NAME:$TAG $DOCKER_REPO/$CONT_NAME:latest
+#  - docker tag $DOCKER_REPO/$CONT_NAME:$TAG $DOCKER_REPO/$CONT_NAME:latest
   - docker push $DOCKER_REPO/$CONT_NAME:$TAG
-  - docker push $DOCKER_REPO/$CONT_NAME
+#  - docker push $DOCKER_REPO/$CONT_NAME
