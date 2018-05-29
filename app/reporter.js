@@ -1,4 +1,4 @@
-const command = require('./tcp');
+const command = require('./command');
 const Influx = require('influx');
 const os = require('os');
 
