@@ -91,7 +91,7 @@ class Reporter {
             output.hash_rate = raw[0].avg_sol_ps;
             output.shares = raw[0].accepted_shares;
             output.rejected_shares = raw[0].rejected_shares;
-            output.gpu = [ raw[0].sol_ps, raw[0].id ];
+            output.gpu = [ raw[0].sol_ps, raw[0].gpu_pci_device_id ];
             output.invalid_shares = 0; // doesn't appear to be available from the api, need to work that out
             output.pool_switches = 0; // doesn't appear to be available from the api, need to work that out
         } else { // must be claymore/ethminer api
@@ -108,6 +108,7 @@ class Reporter {
             output.pool_switches = parseInt(raw[8].split(';')[1]);
         }
 
+        console.log("Output:\n" + output);
         return output;
     }
 
