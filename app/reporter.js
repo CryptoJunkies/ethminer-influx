@@ -86,7 +86,7 @@ class Reporter {
         */
         var output = {};
 
-        if (raw.gpu_id) { // dstm api, maybe ewbf also
+        if (raw.gpu_uuid) { // dstm api, maybe ewbf also
             output.up_time = 0; // not available from result element, need to get root element
             output.hash_rate = raw.avg_sol_ps;
             output.shares = raw.accepted_shares;
