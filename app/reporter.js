@@ -108,7 +108,9 @@ class Reporter {
             output.pool_switches = parseInt(raw[8].split(';')[1]);
         }
 
-        console.log("Output:\n" + output);
+        // some debug output //
+        console.log("Output:\n" + JSON.stringify(output));
+        
         return output;
     }
 
