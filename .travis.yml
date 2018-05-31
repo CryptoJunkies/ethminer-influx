@@ -8,7 +8,7 @@ services:
   - docker
 
 script:
-  - TAG="0.42"
+  - TAG="0.43"
   - CONT_NAME="mstats-exp"
   - DOCKER_REPO="cryptojunkies"
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
