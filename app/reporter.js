@@ -86,12 +86,12 @@ class Reporter {
         */
         var output = {};
 
-        if (raw.gpu_uuid) { // dstm api, maybe ewbf also
+        if (raw[0].gpu_uuid) { // dstm api, maybe ewbf also
             output.up_time = 0; // not available from result element, need to get root element
-            output.hash_rate = raw.avg_sol_ps;
-            output.shares = raw.accepted_shares;
-            output.rejected_shares = raw.rejected_shares;
-            output.gpu = raw.sol_ps;
+            output.hash_rate = raw[0].avg_sol_ps;
+            output.shares = raw[0].accepted_shares;
+            output.rejected_shares = raw[0].rejected_shares;
+            output.gpu = raw[0].sol_ps;
             output.invalid_shares = 0; // doesn't appear to be available from the api, need to work that out
             output.pool_switches = 0; // doesn't appear to be available from the api, need to work that out
         } else { // must be claymore/ethminer api
