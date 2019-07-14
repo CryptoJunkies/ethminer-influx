@@ -1,4 +1,4 @@
-FROM library/node:9.11.1-alpine
+FROM library/node:12.6.0-alpine
 
 LABEL "maintainer"="Chris Diehl <cultclassik@gmail.com>"
 
