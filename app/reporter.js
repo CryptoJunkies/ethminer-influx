@@ -76,7 +76,9 @@ class Reporter {
                 let queryResult = res.result;
                 console.log(queryResult);
                 return queryResult;
-            })
+            }).catch(err => {
+                console.log(`Error running GPU query: ${err}`);
+            });
     }
 
     format(raw) {
